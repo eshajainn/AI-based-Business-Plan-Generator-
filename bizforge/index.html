@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BizForge — AI Business Plan Generator</title>
+  <link rel="stylesheet" href="bizplan.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <div class="noise"></div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">
+      <span class="logo-mark">⬡</span>
+      <span class="logo-name">BizForge</span>
+      <span class="logo-tag">Made by CodTech IT Solutions</span>
+    </div>
+    <div class="header-right">
+      <span class="powered">Powered by Groq + LLaMA 3.3</span>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-label">AUTOMATED BUSINESS INTELLIGENCE</div>
+    <h1 class="hero-title">Turn Your Idea Into<br/><em>A Complete Business Plan</em></h1>
+    <p class="hero-sub">Fill in the details below and let AI generate a professional, investor-ready business plan in seconds.</p>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- LEFT: FORM -->
+    <div class="form-panel">
+      <div class="form-header">
+        <span class="step-badge">Step 1</span>
+        <h2>Tell us about your business</h2>
+      </div>
+
+      <div class="form-grid">
+
+        <div class="field full">
+          <label>Business Name</label>
+          <input type="text" id="bizName" placeholder="e.g. GreenCart, SwiftDelivery..."/>
+        </div>
+
+        <div class="field full">
+          <label>Business Idea <span class="req">*</span></label>
+          <textarea id="bizIdea" rows="3" placeholder="Describe your business idea in 1-2 sentences..."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Industry / Sector</label>
+          <select id="industry">
+            <option value="">Select industry...</option>
+            <option>E-Commerce</option>
+            <option>EdTech</option>
+            <option>FinTech</option>
+            <option>HealthTech</option>
+            <option>Food & Beverage</option>
+            <option>SaaS / Software</option>
+            <option>Agriculture</option>
+            <option>Retail</option>
+            <option>Logistics</option>
+            <option>Real Estate</option>
+            <option>Media & Entertainment</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Target Market</label>
+          <input type="text" id="targetMarket" placeholder="e.g. College students in India"/>
+        </div>
+
+        <div class="field">
+          <label>Startup Budget</label>
+          <select id="budget">
+            <option value="">Select range...</option>
+            <option>Under ₹1 Lakh</option>
+            <option>₹1L – ₹5L</option>
+            <option>₹5L – ₹20L</option>
+            <option>₹20L – ₹1 Crore</option>
+            <option>Above ₹1 Crore</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Business Model</label>
+          <select id="bizModel">
+            <option value="">Select model...</option>
+            <option>B2C (Business to Consumer)</option>
+            <option>B2B (Business to Business)</option>
+            <option>B2B2C</option>
+            <option>Marketplace</option>
+            <option>Subscription</option>
+            <option>Freemium</option>
+            <option>D2C (Direct to Consumer)</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label>Key Competitors (optional)</label>
+          <input type="text" id="competitors" placeholder="e.g. Amazon, Flipkart, local stores..."/>
+        </div>
+
+        <div class="field full">
+          <label>Unique Value Proposition</label>
+          <textarea id="uvp" rows="2" placeholder="What makes your business different or better?"></textarea>
+        </div>
+
+        <div class="field full">
+          <label>Plan Sections to Generate</label>
+          <div class="checkboxes">
+            <label class="checkbox-item"><input type="checkbox" value="Executive Summary" checked/> Executive Summary</label>
+            <label class="checkbox-item"><input type="checkbox" value="Market Analysis" checked/> Market Analysis</label>
+            <label class="checkbox-item"><input type="checkbox" value="Products & Services" checked/> Products & Services</label>
+            <label class="checkbox-item"><input type="checkbox" value="Marketing Strategy" checked/> Marketing Strategy</label>
+            <label class="checkbox-item"><input type="checkbox" value="Operations Plan" checked/> Operations Plan</label>
+            <label class="checkbox-item"><input type="checkbox" value="Financial Projections" checked/> Financial Projections</label>
+            <label class="checkbox-item"><input type="checkbox" value="Risk Analysis"/> Risk Analysis</label>
+            <label class="checkbox-item"><input type="checkbox" value="Team Structure"/> Team Structure</label>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="generate-btn" id="generateBtn" onclick="generatePlan()">
+        <span class="btn-icon">⬡</span>
+        <span class="btn-text">Generate Business Plan</span>
+        <span class="btn-arrow">→</span>
+      </button>
+
+      <p class="form-note">Takes 10–20 seconds · Powered by LLaMA 3.3 70B via Groq</p>
+    </div>
+
+    <!-- RIGHT: OUTPUT -->
+    <div class="output-panel" id="outputPanel">
+
+      <!-- Placeholder -->
+      <div class="output-placeholder" id="placeholder">
+        <div class="placeholder-icon">⬡</div>
+        <h3>Your business plan will appear here</h3>
+        <p>Fill in the form and click Generate to create your AI-powered business plan.</p>
+        <div class="placeholder-features">
+          <div class="feat">📊 Market Analysis</div>
+          <div class="feat">💰 Financial Projections</div>
+          <div class="feat">🎯 Marketing Strategy</div>
+          <div class="feat">⚙️ Operations Plan</div>
+        </div>
+      </div>
+
+      <!-- Loading -->
+      <div class="output-loading" id="loading" style="display:none">
+        <div class="loading-spinner">
+          <div class="spinner-ring"></div>
+          <span class="spinner-icon">⬡</span>
+        </div>
+        <h3 id="loadingText">Analysing your business idea...</h3>
+        <div class="loading-steps" id="loadingSteps">
+          <div class="load-step active" id="ls1">⬡ Researching market landscape</div>
+          <div class="load-step" id="ls2">⬡ Building financial model</div>
+          <div class="load-step" id="ls3">⬡ Crafting marketing strategy</div>
+          <div class="load-step" id="ls4">⬡ Writing your business plan</div>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div class="output-result" id="result" style="display:none">
+        <div class="result-header">
+          <div class="result-title-area">
+            <span class="result-badge">✓ Generated</span>
+            <h2 id="resultTitle">Business Plan</h2>
+          </div>
+          <div class="result-actions">
+            <button class="action-btn" onclick="copyPlan()">📋 Copy</button>
+            <button class="action-btn primary" onclick="downloadPlan()">⬇ Download</button>
+          </div>
+        </div>
+        <div class="result-body" id="resultBody"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>BizForge · AI Business Plan Generator · Made by CodTech IT Solutions</p>
+  </footer>
+
+  <script src="bizplan.js"></script>
+</body>
+</html>
